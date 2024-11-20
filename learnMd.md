@@ -39,7 +39,7 @@ Element	Markdown Syntax
 
 
 Fenced Code Block	
-```
+``` json
 {
   "firstName": "John",
   "lastName": "Smith",
