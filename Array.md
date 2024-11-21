@@ -144,10 +144,6 @@ public class MinMaxDifference {
 
 ---
 
-Apologies for the confusion! I'll now stick strictly to your original set of questions and provide the solutions exactly as you specified. Here's the corrected version for questions 7 through 24:
-
----
-
 ### Q7: For the given array of Strings, print and count all the strings which have even number of characters.  
 - **Example:**  
   - **Input:** `["apple", "banana", "pear", "grape"]`  
@@ -430,185 +426,388 @@ public class RotateArrayRight {
 
 ---
 
-### Q17: WAJP to find the sum of all elements in the array.  
+### Q17: WAJP to rotate all the elements of the array k positions to its right.
+
 - **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`  
-  - **Output:** `15`  
-  - **Explanation:** The sum of the elements is calculated.  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5, 6, 7}`  
+    2. `k = 2`  
+  - **Output:** `{6, 7, 1, 2, 3, 4, 5}`  
+  - **Explanation:** The array is rotated 2 positions to the right. The last 2 elements (`6, 7`) move to the front, and the rest of the elements shift right.  
 - **Code:**  
 ```java
-public class SumArray {
+import java.util.Arrays;
+
+public class RotateArrayRight {
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        int sum = 0;
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        int k = 2;
+        rotateRight(array, k);
+        System.out.println(Arrays.toString(array));
+    }
 
-        for (int num : arr) {
-            sum += num;
+    public static void rotateRight(int[] array, int k) {
+        int n = array.length;
+        k = k % n;  // Handle case when k > n
+        reverse(array, 0, n - 1);  
+        reverse(array, 0, k - 1);
+        reverse(array, k, n - 1);
+    }
+
+    public static void reverse(int[] array, int start, int end) {
+        while (start < end) {
+            int temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
         }
-
-        System.out.println("Sum of array elements: " + sum);
     }
 }
 ```
 
 ---
 
-### Q18: WAJP to find the average of all elements in the array.  
+### Q18: WAJP to rotate each element of an array by one position to the left side.
+
 - **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`  
-  - **Output:** `3.0`  
-  - **Explanation:** The average is calculated by dividing the sum by the number of elements.  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5, 6, 7}`  
+  - **Output:** `{2, 3, 4, 5, 6, 7, 1}`  
+  - **Explanation:** All elements shift left by one position, and the first element (`1`) moves to the end.  
 - **Code:**  
 ```java
-public class AverageArray {
+import java.util.Arrays;
+
+public class RotateArrayLeft {
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        int sum = 0;
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        rotateLeft(array);
+        System.out.println(Arrays.toString(array));
+    }
 
-        for (int num : arr) {
-            sum += num;
+    public static void rotateLeft(int[] array) {
+        int first = array[0];
+        for (int i = 0; i < array.length - 1; i++) {
+            array[i] = array[i + 1];
         }
-
-        double average = (double) sum / arr.length;
-        System.out.println("Average of array elements: " + average);
+        array[array.length - 1] = first;
     }
 }
 ```
 
 ---
 
-### Q19: WAJP to find the largest number in the array.  
+### Q19: WAJP to rotate all the elements of the array k positions to its left.
+
 - **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`  
-  - **Output:** `5`  
-  - **Explanation:** The largest number in the array is 5.  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5, 6, 7}`  
+    2. `k = 2`  
+  - **Output:** `{3, 4, 5, 6, 7, 1, 2}`  
+  - **Explanation:** The array is rotated 2 positions to the left. The first 2 elements (`1, 2`) move to the end, and the rest shift left.  
 - **Code:**  
 ```java
-public class LargestNumber {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        int largest = arr[0];
+import java.util.Arrays;
 
-        for (int num : arr) {
-            if (num > largest) {
-                largest = num;
+public class RotateArrayLeftByK {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        int k = 2;
+        rotateLeftByK(array, k);
+        System.out.println(Arrays.toString(array));
+    }
+
+    public static void rotateLeftByK(int[] array, int k) {
+        int n = array.length;
+        k = k % n;  // Handle case when k > n
+        reverse(array, 0, n - 1);
+        reverse(array, 0, n - k - 1);
+        reverse(array, n - k, n - 1);
+    }
+
+    public static void reverse(int[] array, int start, int end) {
+        while (start < end) {
+            int temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+```
+
+---
+
+### Q20: Rotate Array - LeetCode
+
+- **Link:** [Rotate Array - LeetCode](https://leetcode.com/problems/rotate-array/)  
+
+- **Example:**  
+  - **Input:**  
+    1. `array = [-1, -100, 3, 99]`  
+    2. `k = 2`  
+  - **Output:** `[3, 99, -1, -100]`  
+  - **Explanation:** The array is rotated 2 positions to the right. The last 2 elements (`99, -100`) move to the front, and the rest shift right.  
+- **Code:**  
+```java
+import java.util.Arrays;
+
+public class RotateArrayLeetCode {
+    public static void main(String[] args) {
+        int[] nums = {-1, -100, 3, 99};
+        int k = 2;
+        rotate(nums, k);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public static void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;  // Handle case when k > n
+        reverse(nums, 0, n - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, n - 1);
+    }
+
+    public static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+
+```
+
+### Q21: Move Zeroes - LeetCode  
+**Link:** [Move Zeroes - LeetCode](https://leetcode.com/problems/move-zeroes/)
+
+- **Example:**  
+  - **Input:**  
+    1. `nums = [0, 1, 0, 3, 12]`  
+  - **Output:** `[1, 3, 12, 0, 0]`  
+  - **Explanation:** All zeroes are moved to the end of the array while maintaining the relative order of the non-zero elements.  
+- **Code:**  
+```java
+import java.util.Arrays;
+
+public class MoveZeroes {
+    public static void main(String[] args) {
+        int[] nums = {0, 1, 0, 3, 12};
+        moveZeroes(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public static void moveZeroes(int[] nums) {
+        int nonZeroIndex = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[nonZeroIndex] = nums[i];
+                if (i != nonZeroIndex) {
+                    nums[i] = 0;
+                }
+                nonZeroIndex++;
             }
         }
-
-        System.out.println("Largest number: " + largest);
     }
 }
+
 ```
 
----
-
-### Q20: WAJP to find the smallest number in the array.  
+### Q22: WAJP to move all zeroes of an array to the end.  
 - **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`  
-  - **Output:** `1`  
-  - **Explanation:** The smallest number in the array is 1.  
+  - **Input:**  
+    1. `array[] = [7, 0, 2, 6, 0, 4]`  
+  - **Output:** `[7, 2, 6, 4, 0, 0]`  
+  - **Explanation:** All zeroes are moved to the end of the array while keeping the non-zero elements in the same order.  
 - **Code:**  
 ```java
-public class SmallestNumber {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        int smallest = arr[0];
+import java.util.Arrays;
 
-        for (int num : arr) {
-            if (num < smallest) {
-                smallest = num;
+public class MoveZeroesToEnd {
+    public static void main(String[] args) {
+        int[] array = {7, 0, 2, 6, 0, 4};
+        moveZeroes(array);
+        System.out.println(Arrays.toString(array));
+    }
+
+    public static void moveZeroes(int[] array) {
+        int nonZeroIndex = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != 0) {
+                array[nonZeroIndex] = array[i];
+                if (i != nonZeroIndex) {
+                    array[i] = 0;
+                }
+                nonZeroIndex++;
             }
         }
-
-        System.out.println("Smallest number: " + smallest);
     }
 }
 ```
 
 ---
 
-### Q21: WAJP to print the second largest number in the array.  
+### Q23: WAJP to shift all 0’s to the left and all 1’s to the right (without sorting).  
 - **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`  
-  - **Output:** `4`  
-  - **Explanation:** The second largest number in the array is 4.  
+  - **Input:**  
+    1. `array[] = [0, 1, 1, 0, 0, 1, 0, 0]`  
+  - **Output:** `[0, 0, 0, 0, 0, 1, 1, 1]`  
+  - **Explanation:** All the zeroes are moved to the left and all the ones are moved to the right without sorting.  
 - **Code:**  
 ```java
-public class SecondLargestNumber {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        int largest = arr[0];
-        int secondLargest = Integer.MIN_VALUE;
+import java.util.Arrays;
 
-        for (int num : arr) {
-            if (num > largest) {
-                secondLargest = largest;
-                largest = num;
-            } else if (num > secondLargest && num != largest) {
-                secondLargest = num;
+public class ShiftZeroesAndOnes {
+    public static void main(String[] args) {
+        int[] array = {0, 1, 1, 0, 0, 1, 0, 0};
+        shiftZeroesAndOnes(array);
+        System.out.println(Arrays.toString(array));
+    }
+
+    public static void shiftZeroesAndOnes(int[] array) {
+        int left = 0, right = array.length - 1;
+        while (left < right) {
+            if (array[left] == 0) {
+                left++;
+            } else if (array[right] == 1) {
+                right--;
+            } else {
+                int temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+                left++;
+                right--;
             }
         }
-
-        System.out.println("Second largest number: " + secondLargest);
     }
 }
 ```
 
 ---
 
-### Q22: WAJP to check if the array is sorted in ascending order.  
+### Q24: For the given array of 0’s, 1’s, and 2’s  
+1. Sort the elements (without sorting).  
 - **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`  
-  - **Output:** `Array is sorted in ascending order`  
-  - **Explanation:** The array is checked for ascending order.  
+  - **Input:**  
+    1. `array[] = [0, 2, 0, 1, 2, 1, 0, 2]`  
+  - **Output:** `[0, 0, 0, 1, 1, 2, 2, 2]`  
+  - **Explanation:** The array is rearranged so that all 0's are first, followed by all 1's, and then all 2's.  
 - **Code:**  
 ```java
-public class ArraySortedAscending {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        boolean isSorted = true;
+import java.util.Arrays;
 
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] > arr[i + 1]) {
-                isSorted = false;
-                break;
+public class Sort012 {
+    public static void main(String[] args) {
+        int[] array = {0, 2, 0, 1, 2, 1, 0, 2};
+        sort012(array);
+        System.out.println(Arrays.toString(array));
+    }
+
+    public static void sort012(int[] array) {
+        int low = 0, mid = 0, high = array.length - 1;
+        while (mid <= high) {
+            if (array[mid] == 0) {
+                swap(array, low, mid);
+                low++;
+                mid++;
+            } else if (array[mid] == 1) {
+                mid++;
+            } else {
+                swap(array, mid, high);
+                high--;
             }
         }
+    }
 
-        if (isSorted) {
-            System.out.println("Array is sorted in ascending order");
-        } else {
-            System.out.println("Array is not sorted in ascending order");
-        }
+    public static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }
 ```
 
 ---
 
-### Q23: WAJP to check if the array is sorted in descending order.  
+### Q25: [Sort Colors - LeetCode](https://leetcode.com/problems/sort-colors/)  
+**Link:** [Sort Colors - LeetCode](https://leetcode.com/problems/sort-colors/)
+
 - **Example:**  
-  - **Input:** `[5, 4, 3, 2, 1]`  
-  - **Output:** `Array is sorted in descending order`  
-  - **Explanation:** The array is checked for descending order.  
+  - **Input:**  
+    1. `array[] = [2, 0, 2, 1, 1, 0]`  
+  - **Output:** `[0, 0, 1, 1, 2, 2]`  
+  - **Explanation:** The array is rearranged in a way that all 0's come first, followed by 1's, and then 2's.  
 - **Code:**  
 ```java
-public class ArraySortedDescending {
-    public static void main(String[] args) {
-        int[] arr = {5, 4, 3, 2, 1};
-        boolean isSorted = true;
+import java.util.Arrays;
 
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] < arr[i + 1]) {
-                isSorted = false;
-                break;
+public class SortColors {
+    public static void main(String[] args) {
+        int[] nums = {2, 0, 2, 1, 1, 0};
+        sortColors(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public static void sortColors(int[] nums) {
+        int low = 0, mid = 0, high = nums.length - 1;
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                swap(nums, low, mid);
+                low++;
+                mid++;
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else {
+                swap(nums, mid, high);
+                high--;
             }
         }
+    }
 
-        if (isSorted) {
-            System.out.println("Array is sorted in descending order");
-        } else {
-            System.out.println("Array is not sorted in descending order");
+    public static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+
+```
+
+### Q26: WAJP to print the frequency of each element of the array if all given elements are in the range from 0 to 1000.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 2, 3, 3, 3, 4}`  
+  - **Output:**  
+    1. `1 appears 1 time`  
+    2. `2 appears 2 times`  
+    3. `3 appears 3 times`  
+    4. `4 appears 1 time`  
+  - **Explanation:** The elements are counted and printed along with their frequency.  
+- **Code:**  
+```java
+import java.util.Arrays;
+
+public class FrequencyInRange {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 2, 3, 3, 3, 4};
+        printFrequency(array);
+    }
+
+    public static void printFrequency(int[] array) {
+        int[] frequency = new int[1001]; // Range from 0 to 1000
+        for (int num : array) {
+            frequency[num]++;
+        }
+
+        for (int i = 0; i < frequency.length; i++) {
+            if (frequency[i] > 0) {
+                System.out.println(i + " appears " + frequency[i] + " time(s)");
+            }
         }
     }
 }
@@ -616,749 +815,877 @@ public class ArraySortedDescending {
 
 ---
 
-### Q24: WAJP to remove duplicates from the array.  
+### Q27: WAJP to print the frequency of each element of the array when elements provided are in any range.  
 - **Example:**  
-  - **Input:** `[1, 2, 3, 2, 4, 5, 4]`  
-  - **Output:** `[1, 2, 3, 4, 5]`  
-  - **Explanation:** The duplicates are removed from the array.  
+  - **Input:**  
+    1. `array[] = {3, 1, 3, 2, 4, 2, 1, 5}`  
+  - **Output:**  
+    1. `3 appears 2 times`  
+    2. `1 appears 2 times`  
+    3. `2 appears 2 times`  
+    4. `4 appears 1 time`  
+    5. `5 appears 1 time`  
+  - **Explanation:** The elements are counted and printed along with their frequency.  
 - **Code:**  
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class FrequencyAnyRange {
+    public static void main(String[] args) {
+        int[] array = {3, 1, 3, 2, 4, 2, 1, 5};
+        printFrequency(array);
+    }
+
+    public static void printFrequency(int[] array) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : array) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            System.out.println(entry.getKey() + " appears " + entry.getValue() + " time(s)");
+        }
+    }
+}
+```
+
+---
+
+### Q28: WAJP to print each element of the array which has appeared only once in the array.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 2, 3, 3, 3, 4}`  
+  - **Output:**  
+    `1 4`  
+  - **Explanation:** Only `1` and `4` appear once in the array.  
+- **Code:**  
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class UniqueElements {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 2, 3, 3, 3, 4};
+        printUniqueElements(array);
+    }
+
+    public static void printUniqueElements(int[] array) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : array) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() == 1) {
+                System.out.print(entry.getKey() + " ");
+            }
+        }
+    }
+}
+```
+
+---
+
+### Q29: WAJP to print each element of the array which has appeared more than once/which has duplicate values in the array.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 2, 3, 3, 3, 4}`  
+  - **Output:**  
+    `2 3`  
+  - **Explanation:** `2` and `3` appear more than once in the array.  
+- **Code:**  
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class DuplicateElements {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 2, 3, 3, 3, 4};
+        printDuplicateElements(array);
+    }
+
+    public static void printDuplicateElements(int[] array) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : array) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() > 1) {
+                System.out.print(entry.getKey() + " ");
+            }
+        }
+    }
+}
+```
+
+---
+
+### Q30: WAJP to print all the elements of the array whose frequency is odd.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4}`  
+  - **Output:**  
+    `1 3`  
+  - **Explanation:** Only `1` and `3` have odd frequencies in the array.  
+- **Code:**  
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class OddFrequencyElements {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
+        printOddFrequencyElements(array);
+    }
+
+    public static void printOddFrequencyElements(int[] array) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : array) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() % 2 != 0) {
+                System.out.print(entry.getKey() + " ");
+            }
+        }
+    }
+}
+```
+
+---
+
+### Q31: WAJP to print the element and its frequency which has appeared for the maximum time in the array.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 3, 4, 2, 2, 3}`  
+  - **Output:**  
+    `3 appears 3 time(s)`  
+  - **Explanation:** `3` has appeared the maximum number of times (3 times).  
+- **Code:**  
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class MaxFrequencyElement {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 3, 4, 2, 2, 3};
+        printMaxFrequencyElement(array);
+    }
+
+    public static void printMaxFrequencyElement(int[] array) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : array) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        
+        int maxCount = 0;
+        int maxElement = -1;
+        
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                maxElement = entry.getKey();
+            }
+        }
+        
+        System.out.println(maxElement + " appears " + maxCount + " time(s)");
+    }
+}
+```
+
+---
+
+### Q32: WAJP to print the index and the value of the first non-repeating element in an array.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 2, 3, 3, 3, 4}`  
+  - **Output:**  
+    `Index: 0, Value: 1`  
+  - **Explanation:** `1` is the first non-repeating element in the array at index `0`.  
+- **Code:**  
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class FirstNonRepeatingElement {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 2, 3, 3, 3, 4};
+        printFirstNonRepeatingElement(array);
+    }
+
+    public static void printFirstNonRepeatingElement(int[] array) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        
+        for (int num : array) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num,
+
+ 0) + 1);
+        }
+        
+        for (int i = 0; i < array.length; i++) {
+            if (frequencyMap.get(array[i]) == 1) {
+                System.out.println("Index: " + i + ", Value: " + array[i]);
+                return;
+            }
+        }
+        
+        System.out.println("No non-repeating elements found");
+    }
+}
+```
+
+---
+
+### Q33: WAJP to remove the duplicate values from the array and store all unique elements in a new array.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 2, 3, 4, 4, 5}`  
+  - **Output:**  
+    `[1, 2, 3, 4, 5]`  
+  - **Explanation:** The duplicates are removed, and only the unique elements are stored in the new array.  
+- **Code:**  
+```java
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class RemoveDuplicates {
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 2, 4, 5, 4};
-        HashSet<Integer> set = new HashSet<>();
+        int[] array = {1, 2, 2, 3, 4, 4, 5};
+        int[] uniqueArray = removeDuplicates(array);
+        System.out.println(Arrays.toString(uniqueArray));
+    }
 
-        for (int num : arr) {
+    public static int[] removeDuplicates(int[] array) {
+        HashSet<Integer> set = new HashSet<>();
+        
+        for (int num : array) {
             set.add(num);
         }
-
-        System.out.println("Array after removing duplicates: " + set);
-    }
-}
-```
-
----
-
-### Q25: WAJP to merge two arrays.  
-- **Example:**  
-  - **Input:** `[1, 2, 3]`, `[4, 5, 6]`  
-  - **Output:** `[1, 2, 3, 4, 5, 6]`  
-  - **Explanation:** The two arrays are merged into one.  
-- **Code:**  
-```java
-import java.util.Arrays;
-
-public class MergeArrays {
-    public static void main(String[] args) {
-        int[] arr1 = {1, 2, 3};
-        int[] arr2 = {4, 5, 6};
-
-        int[] merged = new int[arr1.length + arr2.length];
-
-        System.arraycopy(arr1, 0, merged, 0, arr1.length);
-        System.arraycopy(arr2, 0, merged, arr1.length, arr2.length);
-
-        System.out.println("Merged array: " + Arrays.toString(merged));
-    }
-}
-```
-
----
-
-### Q26: WAJP to find if an array contains a specific element.  
-- **Example:**  
-  - **Input:** `[1, 2, 3, 4, 5]`, `element = 3`  
-  - **Output:** `Element 3 found in the array`  
-  - **Explanation:** The program checks whether the specified element is present in the array.  
-- **Code:**  
-```java
-public class ContainsElement {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5};
-        int element = 3;
-        boolean found = false;
-
-        for (int num : arr) {
-            if (num == element) {
-                found = true;
-                break;
-            }
-        }
-
-        if (found) {
-            System.out.println("Element " + element + " found in the array");
-        } else {
-            System.out.println("Element " + element + " not found in the array");
-        }
-    }
-}
-```
-
----
-
-### Q27: WAJP to count the occurrences of a specific element in the array.  
-- **Example:**  
-  - **Input:** `[1, 2, 2, 3, 2, 4, 5]`, `element = 2`  
-  - **Output:** `Element 2 occurs 3 times`  
-  - **Explanation:** The number 2 appears 3 times in the array.  
-- **Code:**  
-```java
-public class CountOccurrences {
-    public static void main(String[] args) {
-        int[] arr = {1, 2, 2, 3, 2, 4, 5};
-        int element = 2;
-        int count = 0;
-
-        for (int num : arr) {
-            if (num == element) {
-                count++;
-            }
-        }
-
-        System.out.println("Element " + element + " occurs " + count + " times");
-    }
-}
-```
-
----
-
-### Q28: WAJP to find the sum of digits of a given number.  
-- **Example:**  
-  - **Input:** `12345`  
-  - **Output:** `15`  
-  - **Explanation:** The sum of the digits 1 + 2 + 3 + 4 + 5
-
- = 15.  
-- **Code:**  
-```java
-public class SumOfDigits {
-    public static void main(String[] args) {
-        int num = 12345;
-        int sum = 0;
-
-        while (num != 0) {
-            sum += num % 10;
-            num /= 10;
-        }
-
-        System.out.println("Sum of digits: " + sum);
-    }
-}
-```
-
----
-
-### Q29: WAJP to reverse the digits of a given number.  
-- **Example:**  
-  - **Input:** `12345`  
-  - **Output:** `54321`  
-  - **Explanation:** The digits of the number are reversed.  
-- **Code:**  
-```java
-public class ReverseDigits {
-    public static void main(String[] args) {
-        int num = 12345;
-        int reversed = 0;
-
-        while (num != 0) {
-            reversed = reversed * 10 + num % 10;
-            num /= 10;
-        }
-
-        System.out.println("Reversed number: " + reversed);
-    }
-}
-```
-
----
-
-
-### Q30: WAJP to check if a number is prime.  
-- **Example:**  
-  - **Input:** `7`  
-  - **Output:** `7 is a prime number`  
-  - **Explanation:** The number 7 is prime because it is only divisible by 1 and itself.  
-- **Code:**  
-```java
-public class PrimeNumber {
-    public static void main(String[] args) {
-        int num = 7;
-        boolean isPrime = true;
-
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) {
-                isPrime = false;
-                break;
-            }
-        }
-
-        if (isPrime && num > 1) {
-            System.out.println(num + " is a prime number");
-        } else {
-            System.out.println(num + " is not a prime number");
-        }
-    }
-}
-```
-
----
-
-### Q31: WAJP to find the factorial of a number.  
-- **Example:**  
-  - **Input:** `5`  
-  - **Output:** `120`  
-  - **Explanation:** The factorial of 5 is `5 * 4 * 3 * 2 * 1 = 120`.  
-- **Code:**  
-```java
-public class Factorial {
-    public static void main(String[] args) {
-        int num = 5;
-        int factorial = 1;
-
-        for (int i = 1; i <= num; i++) {
-            factorial *= i;
-        }
-
-        System.out.println("Factorial of " + num + " is: " + factorial);
-    }
-}
-```
-
----
-
-### Q32: WAJP to print Fibonacci series up to N terms.  
-- **Example:**  
-  - **Input:** `5`  
-  - **Output:** `0, 1, 1, 2, 3`  
-  - **Explanation:** The Fibonacci series is generated by summing the two previous numbers.  
-- **Code:**  
-```java
-public class FibonacciSeries {
-    public static void main(String[] args) {
-        int N = 5;
-        int first = 0, second = 1;
-
-        System.out.print("Fibonacci series: ");
-        for (int i = 0; i < N; i++) {
-            System.out.print(first + " ");
-            int next = first + second;
-            first = second;
-            second = next;
-        }
-    }
-}
-```
-
----
-
-### Q33: WAJP to find the GCD (Greatest Common Divisor) of two numbers.  
-- **Example:**  
-  - **Input:** `12, 18`  
-  - **Output:** `6`  
-  - **Explanation:** The GCD of 12 and 18 is 6, as it's the largest number that divides both.  
-- **Code:**  
-```java
-public class GCD {
-    public static void main(String[] args) {
-        int num1 = 12, num2 = 18;
-        int gcd = 1;
-
-        for (int i = 1; i <= Math.min(num1, num2); i++) {
-            if (num1 % i == 0 && num2 % i == 0) {
-                gcd = i;
-            }
-        }
-
-        System.out.println("GCD of " + num1 + " and " + num2 + " is: " + gcd);
-    }
-}
-```
-
----
-
-### Q34: WAJP to find the LCM (Least Common Multiple) of two numbers.  
-- **Example:**  
-  - **Input:** `12, 18`  
-  - **Output:** `36`  
-  - **Explanation:** The LCM of 12 and 18 is 36, as it's the smallest number that both divide evenly into.  
-- **Code:**  
-```java
-public class LCM {
-    public static void main(String[] args) {
-        int num1 = 12, num2 = 18;
-        int lcm = (num1 * num2) / gcd(num1, num2);
-
-        System.out.println("LCM of " + num1 + " and " + num2 + " is: " + lcm);
-    }
-
-    public static int gcd(int a, int b) {
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
-    }
-}
-```
-
----
-
-### Q35: WAJP to convert a decimal number to binary.  
-- **Example:**  
-  - **Input:** `10`  
-  - **Output:** `1010`  
-  - **Explanation:** The binary representation of 10 is `1010`.  
-- **Code:**  
-```java
-public class DecimalToBinary {
-    public static void main(String[] args) {
-        int num = 10;
-        String binary = Integer.toBinaryString(num);
-
-        System.out.println("Binary of " + num + " is: " + binary);
-    }
-}
-```
-
----
-
-### Q36: WAJP to convert a binary number to decimal.  
-- **Example:**  
-  - **Input:** `1010`  
-  - **Output:** `10`  
-  - **Explanation:** The decimal equivalent of the binary number `1010` is 10.  
-- **Code:**  
-```java
-public class BinaryToDecimal {
-    public static void main(String[] args) {
-        String binary = "1010";
-        int decimal = Integer.parseInt(binary, 2);
-
-        System.out.println("Decimal of " + binary + " is: " + decimal);
-    }
-}
-```
-
----
-
-### Q37: WAJP to find the square root of a number.  
-- **Example:**  
-  - **Input:** `16`  
-  - **Output:** `4.0`  
-  - **Explanation:** The square root of 16 is 4.0.  
-- **Code:**  
-```java
-public class SquareRoot {
-    public static void main(String[] args) {
-        double num = 16;
-        double sqrt = Math.sqrt(num);
-
-        System.out.println("Square root of " + num + " is: " + sqrt);
-    }
-}
-```
-
----
-
-### Q38: WAJP to calculate the power of a number (x raised to the power of y).  
-- **Example:**  
-  - **Input:** `2, 3`  
-  - **Output:** `8`  
-  - **Explanation:** `2^3 = 8`  
-- **Code:**  
-```java
-public class PowerOfNumber {
-    public static void main(String[] args) {
-        int x = 2, y = 3;
-        double result = Math.pow(x, y);
-
-        System.out.println(x + " raised to the power of " + y + " is: " + result);
-    }
-}
-```
-
----
-
-### Q39: WAJP to check if a number is an Armstrong number.  
-- **Example:**  
-  - **Input:** `153`  
-  - **Output:** `153 is an Armstrong number`  
-  - **Explanation:** An Armstrong number is a number that is equal to the sum of its own digits each raised to the power of the number of digits.  
-- **Code:**  
-```java
-public class ArmstrongNumber {
-    public static void main(String[] args) {
-        int num = 153;
-        int originalNum = num;
-        int sum = 0;
-        int digits = String.valueOf(num).length();
-
-        while (num != 0) {
-            int digit = num % 10;
-            sum += Math.pow(digit, digits);
-            num /= 10;
-        }
-
-        if (sum == originalNum) {
-            System.out.println(originalNum + " is an Armstrong number");
-        } else {
-            System.out.println(originalNum + " is not an Armstrong number");
-        }
-    }
-}
-```
-
----
-
-### Q40: WAJP to find the sum of the first N natural numbers.  
-- **Example:**  
-  - **Input:** `5`  
-  - **Output:** `15`  
-  - **Explanation:** The sum of the first 5 natural numbers is `1 + 2 + 3 + 4 + 5 = 15`.  
-- **Code:**  
-```java
-public class SumOfNaturalNumbers {
-    public static void main(String[] args) {
-        int N = 5;
-        int sum = N * (N + 1) / 2;
-
-        System.out.println("Sum of first " + N + " natural numbers is: " + sum);
-    }
-}
-```
-
----
-
-### Q41: WAJP to calculate the area of a circle.  
-- **Example:**  
-  - **Input:** `radius = 7`  
-  - **Output:** `153.93804002589985`  
-  - **Explanation:** The area of a circle is calculated as π * r^2.  
-- **Code:**  
-```java
-public class CircleArea {
-    public static void main(String[] args) {
-        double radius = 7;
-        double area = Math.PI * Math.pow(radius, 2);
-
-        System.out.println("Area of circle with radius " + radius + " is: " + area);
-    }
-}
-```
-
----
-
-### Q42: WAJP to calculate the perimeter of a rectangle.  
-- **Example:**  
-  - **Input:** `length = 5, width = 3`  
-  - **Output:** `16`  
-  - **Explanation:** The perimeter of a rectangle is calculated as 2 * (length + width).  
-- **Code:**  
-```java
-public class RectanglePerimeter {
-
-
-    public static void main(String[] args) {
-        double length = 5, width = 3;
-        double perimeter = 2 * (length + width);
-
-        System.out.println("Perimeter of rectangle is: " + perimeter);
-    }
-}
-```
-
----
-
-### Q43: WAJP to find the area of a triangle using Heron's formula.  
-- **Example:**  
-  - **Input:** `a = 5, b = 6, c = 7`  
-  - **Output:** `14.7`  
-  - **Explanation:** The area of the triangle is calculated using Heron's formula:  
-    \( A = \sqrt{s(s - a)(s - b)(s - c)} \)  
-    where \( s = \frac{a + b + c}{2} \).  
-- **Code:**  
-```java
-public class TriangleArea {
-    public static void main(String[] args) {
-        double a = 5, b = 6, c = 7;
-        double s = (a + b + c) / 2;
-        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-
-        System.out.println("Area of triangle is: " + area);
-    }
-}
-```
-
----
-
-### Q44: WAJP to check if a number is a perfect number.  
-- **Example:**  
-  - **Input:** `28`  
-  - **Output:** `28 is a perfect number`  
-  - **Explanation:** A perfect number is a positive integer that is equal to the sum of its proper divisors, excluding itself.  
-- **Code:**  
-```java
-public class PerfectNumber {
-    public static void main(String[] args) {
-        int num = 28;
-        int sum = 0;
-
-        for (int i = 1; i <= num / 2; i++) {
-            if (num % i == 0) {
-                sum += i;
-            }
-        }
-
-        if (sum == num) {
-            System.out.println(num + " is a perfect number");
-        } else {
-            System.out.println(num + " is not a perfect number");
-        }
-    }
-}
-```
-
----
-
-### Q45: WAJP to find the sum of the squares of the first N natural numbers.  
-- **Example:**  
-  - **Input:** `5`  
-  - **Output:** `55`  
-  - **Explanation:** The sum of the squares of the first 5 natural numbers is \(1^2 + 2^2 + 3^2 + 4^2 + 5^2 = 55\).  
-- **Code:**  
-```java
-public class SumOfSquares {
-    public static void main(String[] args) {
-        int N = 5;
-        int sum = 0;
-
-        for (int i = 1; i <= N; i++) {
-            sum += i * i;
-        }
-
-        System.out.println("Sum of squares of first " + N + " natural numbers is: " + sum);
-    }
-}
-```
-
----
-
-
-### Q46: WAJP to check if a number is a palindrome.  
-- **Example:**  
-  - **Input:** `121`  
-  - **Output:** `121 is a palindrome`  
-  - **Explanation:** A number is a palindrome if it reads the same forward and backward.  
-- **Code:**  
-```java
-public class PalindromeNumber {
-    public static void main(String[] args) {
-        int num = 121;
-        int originalNum = num;
-        int reversed = 0;
-
-        while (num != 0) {
-            int digit = num % 10;
-            reversed = reversed * 10 + digit;
-            num /= 10;
-        }
-
-        if (originalNum == reversed) {
-            System.out.println(originalNum + " is a palindrome");
-        } else {
-            System.out.println(originalNum + " is not a palindrome");
-        }
-    }
-}
-```
-
----
-
-### Q47: WAJP to count the number of vowels in a string.  
-- **Example:**  
-  - **Input:** `"hello"`  
-  - **Output:** `2`  
-  - **Explanation:** The vowels in "hello" are 'e' and 'o', so there are 2 vowels.  
-- **Code:**  
-```java
-public class VowelCount {
-    public static void main(String[] args) {
-        String str = "hello";
-        int count = 0;
-
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ||
-                ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
-                count++;
-            }
-        }
-
-        System.out.println("Number of vowels: " + count);
-    }
-}
-```
-
----
-
-### Q48: WAJP to count the number of words in a string.  
-- **Example:**  
-  - **Input:** `"This is a test"`  
-  - **Output:** `4`  
-  - **Explanation:** There are 4 words in the string "This is a test".  
-- **Code:**  
-```java
-public class WordCount {
-    public static void main(String[] args) {
-        String str = "This is a test";
-        String[] words = str.split("\\s+");
         
-        System.out.println("Number of words: " + words.length);
-    }
-}
-```
-
----
-
-### Q49: WAJP to reverse a string.  
-- **Example:**  
-  - **Input:** `"hello"`  
-  - **Output:** `"olleh"`  
-  - **Explanation:** The reverse of the string "hello" is "olleh".  
-- **Code:**  
-```java
-public class ReverseString {
-    public static void main(String[] args) {
-        String str = "hello";
-        String reversed = "";
-
-        for (int i = str.length() - 1; i >= 0; i--) {
-            reversed += str.charAt(i);
+        int[] uniqueArray = new int[set.size()];
+        int i = 0;
+        for (int num : set) {
+            uniqueArray[i++] = num;
         }
-
-        System.out.println("Reversed string: " + reversed);
+        
+        return uniqueArray;
     }
 }
 ```
 
 ---
 
-### Q50: WAJP to check if a string is a palindrome.  
+### Q34: WAJP to print true if all the elements in the array are unique.  
 - **Example:**  
-  - **Input:** `"madam"`  
-  - **Output:** `"madam is a palindrome"`  
-  - **Explanation:** A string is a palindrome if it reads the same forward and backward.  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5}`  
+  - **Output:**  
+    `true`  
+  - **Explanation:** All elements in the array are unique.  
 - **Code:**  
 ```java
-public class StringPalindrome {
-    public static void main(String[] args) {
-        String str = "madam";
-        String reversed = new StringBuilder(str).reverse().toString();
+import java.util.HashSet;
 
-        if (str.equals(reversed)) {
-            System.out.println(str + " is a palindrome");
-        } else {
-            System.out.println(str + " is not a palindrome");
+public class AllUniqueElements {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5};
+        System.out.println(areAllUnique(array));
+    }
+
+    public static boolean areAllUnique(int[] array) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : array) {
+            if (!set.add(num)) {
+                return false;
+            }
         }
+        return true;
     }
 }
 ```
 
 ---
 
-### Q51: WAJP to find the largest word in a string.  
+### Q35: WAJP to print the biggest and second biggest element of the array.  
 - **Example:**  
-  - **Input:** `"The quick brown fox jumps over the lazy dog"`  
-  - **Output:** `"jumps"`  
-  - **Explanation:** The largest word in the string is "jumps".  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5}`  
+  - **Output:**  
+    `Biggest: 5, Second Biggest: 4`  
+  - **Explanation:** `5` is the biggest element and `4` is the second biggest.  
 - **Code:**  
 ```java
-public class LargestWord {
+public class BiggestSecondBiggest {
     public static void main(String[] args) {
-        String str = "The quick brown fox jumps over the lazy dog";
-        String[] words = str.split("\\s+");
+        int[] array = {1, 2, 3, 4, 5};
+        findBiggestAndSecondBiggest(array);
+    }
 
-        String largestWord = words[0];
-        for (String word : words) {
-            if (word.length() > largestWord.length()) {
-                largestWord = word;
+    public static void findBiggestAndSecondBiggest(int[] array) {
+        int biggest = Integer.MIN_VALUE;
+        int secondBiggest = Integer.MIN_VALUE;
+        
+        for (int num : array) {
+            if (num > biggest) {
+                secondBiggest = biggest;
+                biggest = num;
+            } else if (num > secondBiggest && num != biggest) {
+                secondBiggest = num;
+            }
+        }
+        
+        System.out.println("Biggest: " + biggest + ", Second Biggest: " + secondBiggest);
+    }
+}
+```
+
+---
+
+### Q36: WAJP to print the smallest and second smallest element of the array.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5}`  
+  - **Output:**  
+    `Smallest: 1, Second Smallest: 2`  
+  - **Explanation:** `1` is the smallest element and `2` is the second smallest.  
+- **Code:**  
+```java
+public class SmallestSecondSmallest {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5};
+        findSmallestAndSecondSmallest(array);
+    }
+
+    public static void findSmallestAndSecondSmallest(int[] array) {
+        int smallest = Integer.MAX_VALUE;
+        int secondSmallest = Integer.MAX_VALUE;
+        
+        for (int num : array) {
+            if (num < smallest) {
+                secondSmallest = smallest;
+                smallest = num;
+            } else if (num < secondSmallest && num != smallest) {
+                secondSmallest = num;
+            }
+        }
+        
+        System.out.println("Smallest: " + smallest + ", Second Smallest: " + secondSmallest);
+    }
+}
+
+```
+
+### Q37: WAJP to find the maximum product of two integers in a given array of positive integers.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5}`  
+  - **Output:**  
+    1. `Product: 20`  
+  - **Explanation:** The maximum product comes from multiplying `4` and `5`, i.e., `4 * 5 = 20`.  
+- **Code:**  
+```java
+public class MaxProduct {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5};
+        System.out.println("Product: " + findMaxProduct(array));
+    }
+
+    public static int findMaxProduct(int[] array) {
+        int max1 = Integer.MIN_VALUE;
+        int max2 = Integer.MIN_VALUE;
+
+        for (int num : array) {
+            if (num > max1) {
+                max2 = max1;
+                max1 = num;
+            } else if (num > max2) {
+                max2 = num;
             }
         }
 
-        System.out.println("Largest word is: " + largestWord);
+        return max1 * max2;
     }
 }
 ```
 
 ---
 
-### Q52: WAJP to check if a string is an anagram of another string.  
+### Q38: WAJP to sort the array elements in ascending order.  
 - **Example:**  
-  - **Input:** `"listen", "silent"`  
-  - **Output:** `"listen and silent are anagrams"`  
-  - **Explanation:** Two strings are anagrams if they contain the same characters in a different order.  
+  - **Input:**  
+    1. `array[] = {5, 2, 8, 3, 1}`  
+  - **Output:**  
+    1. `[1, 2, 3, 5, 8]`  
+  - **Explanation:** The elements are arranged in ascending order.  
 - **Code:**  
 ```java
 import java.util.Arrays;
 
-public class AnagramCheck {
+public class AscendingSort {
     public static void main(String[] args) {
-        String str1 = "listen";
-        String str2 = "silent";
+        int[] array = {5, 2, 8, 3, 1};
+        Arrays.sort(array);
+        System.out.println(Arrays.toString(array));
+    }
+}
+```
 
-        char[] str1Array = str1.toCharArray();
-        char[] str2Array = str2.toCharArray();
+---
 
-        Arrays.sort(str1Array);
-        Arrays.sort(str2Array);
+### Q39: WAJP to sort the array elements in descending order.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {5, 2, 8, 3, 1}`  
+  - **Output:**  
+    1. `[8, 5, 3, 2, 1]`  
+  - **Explanation:** The elements are arranged in descending order.  
+- **Code:**  
+```java
+import java.util.Arrays;
+import java.util.Collections;
 
-        if (Arrays.equals(str1Array, str2Array)) {
-            System.out.println(str1 + " and " + str2 + " are anagrams");
-        } else {
-            System.out.println(str1 + " and " + str2 + " are not anagrams");
+public class DescendingSort {
+    public static void main(String[] args) {
+        Integer[] array = {5, 2, 8, 3, 1};
+        Arrays.sort(array, Collections.reverseOrder());
+        System.out.println(Arrays.toString(array));
+    }
+}
+```
+
+---
+
+### Q40: WAJP to print the first half of the array elements in ascending order and the second half of the elements in descending order.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {25, 34, 12, 45, 23, 28}`  
+  - **Output:**  
+    1. `[12, 25, 34, 45, 28, 23]`  
+  - **Explanation:** The first half `[25, 34, 12]` is sorted in ascending order, and the second half `[45, 23, 28]` is sorted in descending order.  
+- **Code:**  
+```java
+import java.util.Arrays;
+import java.util.Collections;
+
+public class HalfAscendingHalfDescending {
+    public static void main(String[] args) {
+        int[] array = {25, 34, 12, 45, 23, 28};
+        printSortedHalves(array);
+    }
+
+    public static void printSortedHalves(int[] array) {
+        int mid = array.length / 2;
+
+        int[] firstHalf = Arrays.copyOfRange(array, 0, mid);
+        int[] secondHalf = Arrays.copyOfRange(array, mid, array.length);
+
+        Arrays.sort(firstHalf);
+        Arrays.sort(secondHalf);
+
+        System.out.println(Arrays.toString(firstHalf));
+        Integer[] secondHalfDesc = Arrays.stream(secondHalf)
+                                         .boxed()
+                                         .toArray(Integer[]::new);
+        Arrays.sort(secondHalfDesc, Collections.reverseOrder());
+        System.out.println(Arrays.toString(secondHalfDesc));
+    }
+}
+```
+
+---
+
+### Q41: WAJP to print the first half of the array in ascending order and the second half in descending order.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {25, 34, 12, 45, 23, 28}`  
+  - **Output:**  
+    1. `[12, 23, 25, 45, 34, 28]`  
+  - **Explanation:** The first half `[25, 34, 12]` is sorted in ascending order, and the second half `[45, 23, 28]` is sorted in descending order.  
+- **Code:**  
+```java
+import java.util.Arrays;
+import java.util.Collections;
+
+public class HalfAscendingHalfDescending2 {
+    public static void main(String[] args) {
+        int[] array = {25, 34, 12, 45, 23, 28};
+        printSortedHalves(array);
+    }
+
+    public static void printSortedHalves(int[] array) {
+        int mid = array.length / 2;
+
+        int[] firstHalf = Arrays.copyOfRange(array, 0, mid);
+        int[] secondHalf = Arrays.copyOfRange(array, mid, array.length);
+
+        Arrays.sort(firstHalf);
+        Arrays.sort(secondHalf);
+
+        Integer[] secondHalfDesc = Arrays.stream(secondHalf)
+                                         .boxed()
+                                         .toArray(Integer[]::new);
+        Arrays.sort(secondHalfDesc, Collections.reverseOrder());
+        
+        System.out.println(Arrays.toString(firstHalf));
+        System.out.println(Arrays.toString(secondHalfDesc));
+    }
+}
+```
+
+---
+
+### Q42: WAJP to print true if elements of an array are the same when read from front or from back; otherwise, print false.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {12, 23, 15, 15, 23, 12}`  
+  - **Output:**  
+    1. `true`  
+  - **Explanation:** The array is the same when read from front to back or back to front.  
+- **Code:**  
+```java
+public class PalindromeArray {
+    public static void main(String[] args) {
+        int[] array = {12, 23, 15, 15, 23, 12};
+        System.out.println(isPalindrome(array));
+    }
+
+    public static boolean isPalindrome(int[] array) {
+        int start = 0;
+        int end = array.length - 1;
+
+        while (start < end) {
+            if (array[start] != array[end]) {
+                return false;
+            }
+            start++;
+            end--;
         }
+
+        return true;
     }
 }
 ```
 
 ---
 
-### Q53: WAJP to convert all characters in a string to uppercase.  
+### Q43: WAJP to find the missing element.  
 - **Example:**  
-  - **Input:** `"hello"`  
-  - **Output:** `"HELLO"`  
-  - **Explanation:** The string "hello" is converted to uppercase as "HELLO".  
+  - **Input:**  
+    1. `array[] = {7, 4, 3, 5, 1, 6}`  
+  - **Output:**  
+    1. `2`  
+  - **Explanation:** The missing element between 1 and 7 is `2`.  
 - **Code:**  
 ```java
-public class UppercaseString {
+public class MissingElement {
     public static void main(String[] args) {
-        String str = "hello";
-        String upperStr = str.toUpperCase();
+        int[] array = {7, 4, 3, 5, 1, 6};
+        System.out.println("Missing element: " + findMissingElement(array));
+    }
 
-        System.out.println("Uppercase string: " + upperStr);
+    public static int findMissingElement(int[] array) {
+        int n = array.length + 1;
+        int totalSum = n * (n + 1) / 2;
+        int arraySum = 0;
+
+        for (int num : array) {
+            arraySum += num;
+        }
+
+        return totalSum - arraySum;
     }
 }
 ```
 
 ---
 
-### Q54: WAJP to convert all characters in a string to lowercase.  
+### Q44: WAJP to check if an array is strictly increasing.  
 - **Example:**  
-  - **Input:** `"HELLO"`  
-  - **Output:** `"hello"`  
-  - **Explanation:** The string "HELLO" is converted to lowercase as "hello".  
+  - **Input:**  
+    1. `array[] = {2, 3, 7, 8, 9}`  
+  - **Output:**  
+    1. `Array is strictly increasing`  
+  - **Explanation:** The array elements are strictly increasing.  
 - **Code:**  
 ```java
-public class LowercaseString {
+public class StrictlyIncreasing {
     public static void main(String[] args) {
-        String str = "HELLO";
-        String lowerStr = str.toLowerCase();
+        int[] array = {2, 3, 7, 8, 9};
+        System.out.println(isStrictlyIncreasing(array));
+    }
 
-        System.out.println("Lowercase string: " + lowerStr);
+    public static boolean isStrictlyIncreasing(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] <= array[i - 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 ```
 
+---
+
+### Q45: WAJP to check whether a given array is in sorted order or not.  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5}`  
+  - **Output:**  
+    1. `Array is sorted`  
+  - **Explanation:** The array is in sorted order (ascending).  
+- **Code:**  
+```java
+public class SortedArray {
+    public static void main(String[] args) {
+        int[] array = {1
+
+, 2, 3, 4, 5};
+        System.out.println(isSorted(array));
+    }
+
+    public static boolean isSorted(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < array[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+---
+
+### Q46: [Migratory Birds - Hackerrank](https://www.hackerrank.com/challenges/migratory-birds/problem)  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 1, 2, 2, 3}`  
+  - **Output:**  
+    1. `1`  
+  - **Explanation:** The most frequent bird is `1` (appears 2 times).  
+- **Code:**  
+```java
+import java.util.*;
+
+public class MigratoryBirds {
+    public static void main(String[] args) {
+        int[] birds = {1, 1, 2, 2, 3};
+        System.out.println(mostFrequentBird(birds));
+    }
+
+    public static int mostFrequentBird(int[] birds) {
+        Map<Integer, Integer> birdCount = new HashMap<>();
+        for (int bird : birds) {
+            birdCount.put(bird, birdCount.getOrDefault(bird, 0) + 1);
+        }
+
+        int mostFrequent = birds[0];
+        int maxCount = birdCount.get(mostFrequent);
+
+        for (Map.Entry<Integer, Integer> entry : birdCount.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                mostFrequent = entry.getKey();
+                maxCount = entry.getValue();
+            } else if (entry.getValue() == maxCount && entry.getKey() < mostFrequent) {
+                mostFrequent = entry.getKey();
+            }
+        }
+
+        return mostFrequent;
+    }
+}
+```
+
+---
+
+### Q47: [Implement binary search algorithm](https://www.geeksforgeeks.org/binary-search/)  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, target = 5`  
+  - **Output:**  
+    1. `Index: 4`  
+  - **Explanation:** The target `5` is found at index `4`.  
+- **Code:**  
+```java
+public class BinarySearch {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int target = 5;
+        System.out.println("Index: " + binarySearch(array, target));
+    }
+
+    public static int binarySearch(int[] array, int target) {
+        int left = 0;
+        int right = array.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (array[mid] == target) {
+                return mid;
+            } else if (array[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return -1;  // Target not found
+    }
+}
+```
+
+---
+
+### Q48: [First Missing Positive - LeetCode](https://leetcode.com/problems/first-missing-positive/)  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 2, 0}`  
+  - **Output:**  
+    1. `3`  
+  - **Explanation:** The first missing positive integer is `3`.  
+- **Code:**  
+```java
+public class FirstMissingPositive {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 0};
+        System.out.println(firstMissingPositive(array));
+    }
+
+    public static int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+                int temp = nums[i];
+                nums[i] = nums[nums[i] - 1];
+                nums[temp - 1] = temp;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+
+        return n + 1;
+    }
+}
+```
+
+---
+
+### Q49: [Remove Duplicates from Sorted Array - LeetCode](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {1, 1, 2, 3, 3}`  
+  - **Output:**  
+    1. `array[] = {1, 2, 3}`  
+  - **Explanation:** Duplicates are removed from the sorted array.  
+- **Code:**  
+```java
+public class RemoveDuplicates {
+    public static void main(String[] args) {
+        int[] array = {1, 1, 2, 3, 3};
+        System.out.println(removeDuplicates(array));
+    }
+
+    public static int removeDuplicates(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+
+        int index = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1]) {
+                nums[index++] = nums[i];
+            }
+        }
+
+        return index;
+    }
+}
+```
+
+---
+
+### Q50: [Count Primes - LeetCode](https://leetcode.com/problems/count-primes/)  
+- **Example:**  
+  - **Input:**  
+    1. `n = 10`  
+  - **Output:**  
+    1. `4`  
+  - **Explanation:** The prime numbers less than 10 are 2, 3, 5, and 7.  
+- **Code:**  
+```java
+public class CountPrimes {
+    public static void main(String[] args) {
+        int n = 10;
+        System.out.println(countPrimes(n));
+    }
+
+    public static int countPrimes(int n) {
+        boolean[] isPrime = new boolean[n];
+        int count = 0;
+
+        for (int i = 2; i < n; i++) {
+            if (!isPrime[i]) {
+                count++;
+                for (int j = 2 * i; j < n; j += i) {
+                    isPrime[j] = true;
+                }
+            }
+        }
+
+        return count;
+    }
+}
+```
+
+---
+
+### Q51: [Third Maximum Number - LeetCode](https://leetcode.com/problems/third-maximum-number/)  
+- **Example:**  
+  - **Input:**  
+    1. `array[] = {3, 2, 1}`  
+  - **Output:**  
+    1. `1`  
+  - **Explanation:** The third maximum number is `1`.  
+- **Code:**  
+```java
+import java.util.*;
+
+public class ThirdMaximumNumber {
+    public static void main(String[] args) {
+        int[] array = {3, 2, 1};
+        System.out.println(thirdMax(array));
+    }
+
+    public static int thirdMax(int[] nums) {
+        TreeSet<Integer> set = new TreeSet<>();
+        for (int num : nums) {
+            set.add(num);
+            if (set.size() > 3) {
+                set.pollFirst();
+            }
+        }
+
+        if (set.size() == 3) {
+            return set.first();
+        }
+
+        return set.last();
+    }
+}
+```
+
+---
